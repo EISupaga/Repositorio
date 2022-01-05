@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<!-- Head -->
+<head th:replace="/fragmentos/head :: head"></head>
+
+<body style="padding-top:70px;">
+	<!-- Navbar -->
+	<head th:replace="/fragmentos/navbar :: nav"></head>
+		<section th:style="${(trabajos.isEmpty() ? 'margin-bottom:625px;' : 'margin-bottom:10px;')}">
+				
+				<div class="row people" >
+						<div class="row people">
+							<h th:if="${mensaje != null}" th:text="${mensaje}"></h>
+						</div>
+					    <div th:each="trabajo,status : ${trabajos}" class="col-md-6 col-lg-4 item">
+						    <div class="container__card">
+					            <div class="card__father">
+					                <div class="card"> 
+					                    <div class="card__front" style="background-image: url(images/globant2.jpg);">
+					                        <div class="bg"></div>
+					                        <div class="body__card_front">
+					                            <img class="card__front card_img" th:if="${trabajo.empresa.foto == null}" src="assets/img/logogoogle.png">
+					                            <img class="card__front card_img" th:if="${trabajo.empresa.foto != null}" th:src="${'/imagen/usuario/' + trabajo.empresa.id}">
+												<p class="card_puesto">Puesto: <spam th:text="${trabajo.puesto}" class=""></spam> </p> 
+					                        </div>
+					                    </div>
+					                    <div class="card__back">
+					                        <div class="body__card_back">
+					                                  <!---->
+					                               		<div class="" role="document">  
+					                                   		<div class="card_titulo">
+																<h4 th:text="${trabajo.puesto}"></h4>
+															</div>
+															
+															<div>
+																<p class="card_titulo">Empresa: <spam th:text="${trabajo.nombre_empresa}" class=""></spam> </p>
+																<p class="card_titulo">Puesto: <spam th:text="${trabajo.puesto}" class=""></spam> </p>
+																<p class="card_titulo">Lenguaje: <spam th:text="${trabajo.lenguajes}" class="">></spam> </p>
+																<p class="card_titulo">Modalidad: <spam th:text="${trabajo.modalidad}" class=""></spam> </p>
+																<p class="card_titulo">Zona: <spam th:text="${trabajo.zona}" class=""></spam> </p>
+															</div>
+															<form method="POST" th:action="@{/emparejado/emparejarpostulante}">
+																<input class="" type="hidden" th:value="${trabajo.id}" id="id_trabajo" name="id_trabajo" />
+																<button type="submit" name="submit" value="value" class="pulsador" sec:authorize="hasRole('ROLE_POSTULANTE')" >Like</button>
+															</form>
+														</div>
+					                                  <!---->
+					                        	</div>
+					                    	</div>
+					                    </div>
+					                </div> 
+					             </div>   
+							  </div>		
+					</section>
+	
+		
+			<!-- Footer -->
+			<head th:replace="/fragmentos/footer :: footer"></head>
+			<!-- Script -->
+			<head th:replace="/fragmentos/scripts :: scripts"></head>
+	</body>
+
+</html>
